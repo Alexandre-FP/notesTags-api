@@ -30,6 +30,6 @@ export class SessionsController {
         expiresIn: 60 * 60 * 3, // É O TEMPO QUE VAI LEVAR PARA EXPIRAR ESSE TOKEN
       });
 
-      return res.status(200).json({ content: token, session: _.omit(userExist, "password") });
+      return res.status(200).json({ content: { token: token, session: _.omit(userExist, "password") }} ); 
   }
 }
