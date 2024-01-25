@@ -2,6 +2,7 @@ import "express-async-errors";
 import AppError from "./utils/AppError.js";
 import express, { json, urlencoded } from "express"; 
 import migrationsRun from "./database/sqlite/migrations/index.js";
+import cors from "cors"
 import { usersRouter, notesRouter, tagsRouter, sessionRouter } from "./routes/index.js";
 import { UPLOADS_FOLDER } from "./config/upload.js";
 
@@ -11,6 +12,7 @@ migrationsRun();
 
 app.use(json()); // trabalhando com JSON 
 app.use(urlencoded({ extended: true })); // trabalhando com JSON 
+app.use(cors()); // permissao de acesso
 app.use("/api", usersRouter);
 app.use("/api/notes", notesRouter);
 app.use("/api/tags", tagsRouter);
