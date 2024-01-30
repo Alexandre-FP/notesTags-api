@@ -27,9 +27,9 @@ class UserAvatarController {
     const filename = await disk.saveFile(avatarFileName);
     userId.avatar = filename; 
 
-    await knex("users").update(userId).where({ id: token.id });
+    await knex("users").update(userId).where({ id: token.id });  
 
-    return res.status(200).json({ menssage: userId }); 
+    return res.status(200).json({ content: userId }); 
   }
 }
 
