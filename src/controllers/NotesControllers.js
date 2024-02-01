@@ -22,7 +22,7 @@ class NotesController {
 
         const result = { ...notes }
 
-        return res.status(200).json({ content: result, tags, links })
+        return res.status(200).json({result, tags, links})
     }
     
     async create(req, res) {
