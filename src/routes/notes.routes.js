@@ -9,6 +9,6 @@ notesRouter.get("/", AcessoRotas, notesControllers.consultaQuery);
 notesRouter.post("/:user_id", AcessoRotas, notesControllers.create);
 notesRouter.get("/buscar/:id", AcessoRotas, notesControllers.show);
 notesRouter.delete("/deletar/:id", AcessoRotas, notesControllers.delete);
-notesRouter.get("/listar", AcessoRotas, notesControllers.index); 
+notesRouter.get("/listar", AcessoRotas, notesControllers.index);  
 
 export default notesRouter; 

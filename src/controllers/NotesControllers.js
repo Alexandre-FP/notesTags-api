@@ -59,7 +59,7 @@ class NotesController {
 
     async consultaQuery(request, response) {
       const { title, user_id, tags } = request.query
-
+  
       let notes
   
       if (tags) {
@@ -75,6 +75,7 @@ class NotesController {
           .whereLike("notes.title", `%${title}%`)
           .whereIn("name", filterTags)
           .innerJoin("notes", "notes.id", "tags.note_id")
+          .groupBy("notes.id") 
           .orderBy("notes.title")
           
       } else {
@@ -83,7 +84,7 @@ class NotesController {
         .whereLike("title", `%${title}%`)
         .orderBy("title")
       }
-
+  
       const userTags = await knex("tags").where({ user_id })
       const notesWhithTags = notes.map(note => {
         const noteTags = userTags.filter(tag => tag.note_id === note.id)
