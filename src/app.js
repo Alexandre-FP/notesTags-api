@@ -20,18 +20,18 @@ app.use("/api/login", sessionRouter);
 app.use("/api/file", express.static(UPLOADS_FOLDER)) // arquivo statico
  
 // tratamento de erros
-// app.use((error, req, res, next) => { 
-//     if(error instanceof AppError){
-//         return res.status(error.statusCode).json({ 
-//             status: "error", 
-//             menssage: error.message
-//         }); 
-//     }
+app.use((error, req, res, next) => { 
+    if(error instanceof AppError){
+        return res.status(error.statusCode).json({ 
+            status: "error", 
+            menssage: error.message
+        }); 
+    }
 
-//     return res.status(500).json({ 
-//         status: "error",
-//         menssage: "Error da Api"
-//     });
-// });
+    return res.status(500).json({ 
+        status: "error",
+        menssage: "Error da Api"
+    });
+});
 
 export default app;
