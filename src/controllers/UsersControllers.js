@@ -1,8 +1,12 @@
 import AppError from "../utils/AppError.js";
 import sqliteConnection from "../database/sqlite/index.js";
 import bcrypt from "bcrypt";
+import UserRepositories from "../repositories/UserRepositories.js";
+import UserServices from "../services/UserServices.js";
 
 const database = await sqliteConnection();
+const userRepositories = new UserRepositories();
+const userServices = new UserServices(userRepositories); 
 
 class UsersController {
      
@@ -28,23 +32,10 @@ class UsersController {
 
   async create(req, res) {
     const { name, email, password } = req.body;
-    const hashPassword = await bcrypt.hash(password, 8);
 
-    const checkUserExists = await database.get(
-      `SELECT * FROM users WHERE email = (?)`,
-      [email]
-    );
+    const user  = await userServices.execute({ name, email, password }) 
 
-    if (checkUserExists) {
-      throw new AppError("Email já está em uso");
-    }
-
-    await database.run(
-      `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
-      [name, email, hashPassword]
-    );
-
-    return res.status(201).json({ content: { name, email, hashPassword } });
+    return res.status(201).json({ content: user });
   }
 
   async update(req, res) {
@@ -111,4 +102,4 @@ class UsersController {
   }
 }
 
-export default UsersController; 
+export default UsersController;  

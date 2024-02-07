@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
             menssage: error.message
         }); 
     }
-
+ 
     return res.status(500).json({ 
         status: "error",
         menssage: "Error da Api"
