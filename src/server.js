@@ -1,3 +1,4 @@
 import app from "./app.js";
 
-app.listen({ port: Number(process.env.PORT_DEV )}, () => console.log(`Servidor rodando na porta 🚀 ${Number(process.env.PORT_DEV )}`));  
+const PORT = Number(process.env.PORT_DEV ) || 3001;
+app.listen({ port: PORT }, () => console.log(`Servidor rodando na porta 🚀 ${PORT}`));  
